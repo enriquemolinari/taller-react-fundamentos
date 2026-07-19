@@ -8,7 +8,7 @@
 | **04-iteraciones.js** | Muestra diversos métodos para iterar sobre arreglos como forEach, map, filter y otras técnicas de iteración en JavaScript. |
 | **05-destructing.js** | Explora la sintaxis de destructuring para extraer valores de objetos y arreglos de forma concisa, facilitando el acceso a propiedades anidadas. |
 | **06-objetos.js** | Cubre la creación de objetos con notación literal, computed property names, acceso a propiedades, agregado de propiedades en tiempo de ejecución y spread syntax con objetos. |
-| **07-promesas.js** | Demuestra el uso de promesas para manejar operaciones asincrónicas en JavaScript. |
+| **07-ajax-promesas.js** | Cómo realizar peticiones AJAX utilizando `fetch` y el concepto de promesas. |
 
 Para ejecutar alguno de los ejemplos, en una terminal:
 
