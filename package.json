@@ -1,0 +1,11 @@
+{
+  "name": "taller-react-fundamentos",
+  "description": "Mini curso sobre fundamentos de React",
+  "private": true,
+  "workspaces": [
+    "01-js-fundamentos",
+    "02-react-with-vite",
+    "03-react-components"
+  ],
+  "author": "Enrique Molinari"
+}
