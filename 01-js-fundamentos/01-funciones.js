@@ -1,5 +1,5 @@
 // declaración de una función
- 
+
 function suma(a, b) {
   return a + b;
 }
@@ -35,5 +35,5 @@ function ejecutarFuncion(func) {
 }
 
 ejecutarFuncion(function () {
-  console.log("Funcion pasada como parametro");
+  console.log("Función pasada como parámetro");
 }); 

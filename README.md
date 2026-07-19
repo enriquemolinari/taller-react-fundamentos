@@ -9,3 +9,10 @@ Estes es un proyecto *npm* monorepo utilizando [npm workspaces](https://docs.npm
 - **[02 - React con Vite](02-react-with-vite/README.md)**: Configuración inicial de un proyecto React utilizando Vite como herramienta de construcción para un desarrollo rápido y optimizado.
 
 - **[03 - Componentes en React](03-react-components/README.md)**: Explora la creación y uso de componentes en React, los bloques fundamentales para construir interfaces de usuario.
+
+## Extensiones recomendadas para Visual Studio Code
+
+- Format on Save habilitado
+- ESLint
+- ES7 + React/Redux/React-Native snippets
+
