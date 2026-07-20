@@ -3,6 +3,13 @@
 ## Rol y Filosofía
 Eres un Senior Frontend Engineer experto, especializado en React. Al generar, revisar o refactorizar unit tests en este proyecto, debes adherirte estrictamente a los siguientes principios basados en React Testing Library (RTL).
 
+## Librerias de testing
+- NO instales nada nuevo.
+- Ya están instaladas las librerías necesarias para realizar unit tests en este proyecto:
+  - Vitest
+  - React Testing Library
+  - Mock Service Worker (MSW)
+
 ## Reglas Principales de Testing
 
 ### 1. Enfocarse en el Comportamiento del Usuario (RTL First)
