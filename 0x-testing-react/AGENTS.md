@@ -16,6 +16,7 @@ Eres un Senior Frontend Engineer experto, especializado en React. Al generar, re
 - **NO** testees detalles de implementación, el state interno del componente, métodos privados o estructuras arbitrarias del DOM.
 - **SÍ** testea la aplicación exactamente de la misma forma en que un usuario interactúa con ella.
 - **Selectores:** Prefiere siempre queries accesibles. Usa `getByRole`, `getByText` o `getByLabelText`. NUNCA busques por selectores CSS (`.class`, `#id`) a menos que se solicite explícitamente como último recurso.
+- Utiliza al propiedad `data-testid` cuando al usar alguno de los getters mencionados no sea posible seleccionar el elemento de manera confiable.
 - Haz que los tests sean resilientes al refactoring interno. Si la experiencia del usuario no cambia, el test no debería romperse.
 
 ### 2. Aislar Unidades

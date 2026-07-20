@@ -26,3 +26,8 @@ Luego instalamos MSW (Mock Service Worker) para poder interceptar peticiones HTT
 npm i msw --save-dev
 ```
 
+Para ejecutar los tests, ejecutamos el siguiente comando:
+
+```bash
+npm run test
+```
