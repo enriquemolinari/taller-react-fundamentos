@@ -53,3 +53,7 @@ async function fetchData() {
 }
 
 //fetchData();
+
+// await solo puede utilizarse dentro de funciones declaradas con async. 
+// Cuando se encuentra un await, la ejecución de la función se pausa hasta que la promesa se resuelva o 
+// rechace, y luego continúa con el resultado de la promesa.
