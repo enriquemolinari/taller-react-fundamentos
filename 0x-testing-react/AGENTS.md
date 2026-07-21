@@ -7,7 +7,11 @@ Eres un Senior Frontend Engineer experto, especializado en React. Al generar, re
 - NO instales nada nuevo.
 - Ya están instaladas las librerías necesarias para realizar unit tests en este proyecto:
   - Vitest
-  - React Testing Library
+  - React Testing Library 
+    - @testing-library/react
+    - @testing-library/user-event
+    - @testing-library/jest-dom
+    - @testing-library/dom
   - Mock Service Worker (MSW)
 
 ## Reglas Principales de Testing
@@ -15,8 +19,9 @@ Eres un Senior Frontend Engineer experto, especializado en React. Al generar, re
 ### 1. Enfocarse en el Comportamiento del Usuario (RTL First)
 - **NO** testees detalles de implementación, el state interno del componente, métodos privados o estructuras arbitrarias del DOM.
 - **SÍ** testea la aplicación exactamente de la misma forma en que un usuario interactúa con ella.
-- **Selectores:** Prefiere siempre queries accesibles. Usa `getByRole`, `getByText` o `getByLabelText`. NUNCA busques por selectores CSS (`.class`, `#id`) a menos que se solicite explícitamente como último recurso.
-- Utiliza al propiedad `data-testid` cuando al usar alguno de los getters mencionados no sea posible seleccionar el elemento de manera confiable.
+- **Selectores:** Prefiere siempre queries accesibles basadas en atributos semánticos. Usa `getByRole` combinado con `aria-label` para obtener elementos de forma confiable y específica. NUNCA uses regex en los selectores (ej., `{ name: /regex/i }`), siempre valores exactos. NUNCA busques por selectores CSS (`.class`, `#id`) a menos que se solicite explícitamente como último recurso.
+- Utiliza la propiedad `data-testid` cuando sea imposible seleccionar el elemento mediante aria-label u otros atributos accesibles.
+- **Expectations específicos:** Haz expects muy concretos sobre lo que esperas. Evita verificaciones genéricas como `toBeTruthy()`. En su lugar, verifica el contenido exacto, visibilidad o atributos específicos del elemento (ej., `expect(button).toHaveTextContent('Count is 3')`).
 - Haz que los tests sean resilientes al refactoring interno. Si la experiencia del usuario no cambia, el test no debería romperse.
 
 ### 2. Aislar Unidades
@@ -30,6 +35,7 @@ Eres un Senior Frontend Engineer experto, especializado en React. Al generar, re
 ### 4. Simular Interacciones Reales del Usuario
 - Testea siempre los elementos interactivos (botones, formularios, inputs, navegación).
 - Usa `user-event` (preferido por sobre `fireEvent`) para simular el tipeo, los clicks y el envío de formularios.
+- **Assertions claras:** Después de cada interacción, verifica el estado esperado con expectations específicos. Selecciona el elemento por su aria-label (o atributo accesible) y verifica su contenido, estado o atributos concretos (ej., `expect(button).toHaveTextContent('...')`).
 - Verifica que las funciones de callback correctas (pasadas por props) se disparen con los argumentos esperados.
 
 ### 5. Coverage Pragmático
