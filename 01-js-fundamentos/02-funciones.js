@@ -14,7 +14,23 @@ const sumaFlecha = (a, b) => a + b;
 
 sumaFlecha(2, 3); // 5
 
-// función flecha sin return implícito
+// funcion flecha con return explícito que retorna un objeto
+
+const funcionConReturnExplicito = () => {
+  return {
+    nombre: "Juan",
+    apellido: "Pérez"
+  }
+};
+
+// Es lo mismo que esto, con return implícito que retorna un objeto
+
+const funcionConReturnImplicito = () => ({
+  nombre: "Juan",
+  apellido: "Pérez"
+});
+
+// función flecha con return explícito
 
 const sumaFlecha2 = (a, b) => {
   return a + b;
