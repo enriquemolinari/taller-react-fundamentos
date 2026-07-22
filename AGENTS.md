@@ -1,8 +1,5 @@
 # Unit Testing en React para Agentes de IA
 
-## Rol y Filosofía
-Eres un Senior Frontend Engineer experto, especializado en React. Al generar, revisar o refactorizar unit tests en este proyecto, debes adherirte estrictamente a los siguientes principios basados en React Testing Library (RTL).
-
 ## Librerias de testing
 - NO instales nada nuevo.
 - Ya están instaladas las librerías necesarias para realizar unit tests en este proyecto:
@@ -27,6 +24,76 @@ Eres un Senior Frontend Engineer experto, especializado en React. Al generar, re
 ### 2. Aislar Unidades
 - Asegúrate de que cada unit test se enfoque en un solo componente o funcionalidad de forma aislada.
 - Usa mock service workers (MSW) para interceptar y controlar las peticiones de red, asegurando que los tests sean deterministas y no dependan de APIs o servicios externos.
+
+### 2.1 Testing para Componentes con fetch/AJAX (MSW)
+- Para cualquier componente que haga `fetch`, axios, React Query o cualquier conexión AJAX, usa MSW. No mockees `global.fetch` con `vi.spyOn` salvo que se pida explícitamente.
+- Define handlers base en `setupServer(...)` para el comportamiento por defecto.
+- Activa el server una sola vez con `beforeAll`.
+- Usa `beforeEach` para resetear estado de datos/variables del test si aplica.
+- Usa `afterEach` para `cleanup()` y `server.resetHandlers()` para evitar contaminación entre tests.
+- Cierra el server con `afterAll`.
+
+Ejemplo :
+
+```jsx
+const server = setupServer(
+  http.get('https://jsonplaceholder.typicode.com/posts', () => {
+    return HttpResponse.json([
+      {
+        userId: 7,
+        id: 42,
+        title: 'Testing title',
+        body: 'Testing body',
+      },
+    ])
+  })
+)
+
+beforeAll(() => {
+  server.listen({ onUnhandledRequest: 'error' })
+})
+
+afterEach(() => {
+  cleanup()
+  server.resetHandlers()
+})
+
+afterAll(() => {
+  server.close()
+})
+
+test('renders fetched post data in the table after loading', async () => {
+  render(<WithAjax />)
+
+  const table = await screen.findByRole('table')
+  const row = await screen.findByRole('row', { name: '7 42 Testing title Testing body' })
+
+  expect(table).toBeVisible()
+  expect(within(row).getByRole('cell', { name: '7' })).toBeVisible()
+  expect(within(row).getByRole('cell', { name: '42' })).toBeVisible()
+  expect(within(row).getByRole('cell', { name: 'Testing title' })).toBeVisible()
+  expect(within(row).getByRole('cell', { name: 'Testing body' })).toBeVisible()
+})
+```
+
+Override de respuesta para un test especifico:
+
+```jsx
+test('shows empty table when API returns no posts', async () => {
+  server.use(
+    http.get('https://jsonplaceholder.typicode.com/posts', () => {
+      return HttpResponse.json([])
+    })
+  )
+
+  render(<WithAjax />)
+
+  const table = await screen.findByRole('table')
+  expect(table).toBeVisible()
+})
+```
+
+Nota: `server.resetHandlers()` no borra los handlers base de `setupServer(...)`; solo elimina overrides hechos con `server.use(...)`.
 
 ### 3. Variaciones Exhaustivas de Props
 - Al testear un componente, genera automáticamente test cases para diferentes combinaciones de props.
