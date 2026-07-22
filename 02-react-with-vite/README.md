@@ -7,15 +7,21 @@ node -v
 npm -v
 ```
 
-## Que es Vite
+## Qué es Vite
 
 Vite es una herramienta de desarrollo frontend para crear aplicaciones modernas de forma rápida.
 
-En desarrollo, levanta un servidor muy veloz y actualiza cambios al instante (HMR: Hot Module Replacement). En producción, genera un build optimizado con lo cual cumple el rol de bundler.
+En desarrollo, levanta un servidor muy veloz y actualiza cambios al instante (HMR: Hot Module Replacement). En producción, genera un build optimizado, por lo que cumple el rol de bundler.
 
 En un proyecto React con Client Side Rendering (CSR), Vite es importante porque transforma JSX a JavaScript, resuelve imports, procesa estilos y assets, y empaqueta todo para que el navegador reciba archivos optimizados.
 
 Sin una herramienta como Vite, tendrías que configurar manualmente transformación, empaquetado y optimización, lo que agrega complejidad innecesaria para quien está empezando.
+
+## Client-Side Rendering (CSR) vs Server-Side Rendering (SSR)
+
+En CSR (Client-Side Rendering), el servidor entrega principalmente un HTML base y el navegador descarga JavaScript para que React construya la interfaz en el cliente. La transformación de datos a HTML ocurre en el navegador.
+
+En SSR, la transformación de datos a HTML se realiza en el servidor de forma completa y antes de enviarla al navegador en cada request. 
 
 ## Crear el proyecto
 
@@ -35,36 +41,36 @@ Cuando corra el servidor con `npm run dev`, Vite te va a mostrar una URL local (
 Cuando se crea la app, vas a ver una estructura similar a esta:
 
 ```text
-nombre-del-proyecto/             # carpeta raiz del proyecto
+nombre-del-proyecto/             # carpeta raíz del proyecto
   node_modules/                  # dependencias instaladas por npm
   index.html                     # HTML base donde React monta la app
   package.json                   # scripts (dev/build/preview) y dependencias
   package-lock.json              # versiones exactas de las dependencias instaladas
-  vite.config.js                 # configuracion de Vite
-  eslint.config.js               # reglas de calidad y estilo de codigo
-  public/                        # archivos estaticos servidos tal cual
-  src/                           # codigo fuente principal de la aplicacion
+  vite.config.js                 # configuración de Vite
+  eslint.config.js               # reglas de calidad y estilo de código
+  public/                        # archivos estáticos servidos tal cual
+  src/                           # código fuente principal de la aplicación
     main.jsx                     # punto de entrada de React
     App.jsx                      # componente principal inicial
     index.css                    # estilos globales
     App.css                      # estilos del componente App
-    assets/                      # imagenes y recursos usados desde src
+    assets/                      # imágenes y recursos usados desde src
 ```
 
 ## Primer cambio recomendado
 
-1. Abri `src/App.jsx`.
+1. Abrí `src/App.jsx`.
 2. Cambia el contenido del componente.
 3. Guarda el archivo y mira el navegador.
 
-Vite actualiza los cambios en caliente (Hot Module Replacement), asi que no hace falta recargar manualmente.
+Vite actualiza los cambios en caliente (Hot Module Replacement), así que no hace falta recargar manualmente.
 
 ## Scripts más usados
 
 ```bash
 npm run dev      # inicia entorno de desarrollo
-npm run build    # genera version de produccion
-npm run preview  # previsualiza build de produccion
+npm run build    # genera versión de producción
+npm run preview  # previsualiza build de producción
 ```
 
 
