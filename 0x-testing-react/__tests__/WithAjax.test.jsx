@@ -5,7 +5,7 @@ import '@testing-library/jest-dom'
 import { render, screen, cleanup, within } from '@testing-library/react'
 import { setupServer } from 'msw/node'
 import { http, HttpResponse } from 'msw'
-import WithAjax from '../src/WithAjax.jsx'
+import WithAjax from '../src/components/WithAjax.jsx'
 
 const server = setupServer(
     http.get('https://jsonplaceholder.typicode.com/posts', () => {

@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import WithAjax from './WithAjax.jsx'
+import WithAjax from './components/WithAjax.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

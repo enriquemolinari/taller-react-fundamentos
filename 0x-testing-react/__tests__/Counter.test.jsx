@@ -4,7 +4,7 @@ import { test, afterEach } from 'vitest'
 import '@testing-library/jest-dom'
 import { render, screen, cleanup } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import Counter from '../src/Counter.jsx'
+import Counter from '../src/components/Counter.jsx'
 
 afterEach(() => {
   cleanup()
