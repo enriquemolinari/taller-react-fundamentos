@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 export default function WithAjax() {
     const [data, setData] = useState([]);
 
+    //sin useEffect el fetch se ejecuta en cada renderizado, lo que genera un bucle infinito.
     useEffect(() => {
         fetch('https://jsonplaceholder.typicode.com/posts')
             .then((response) => response.json())
