@@ -1,4 +1,8 @@
-# Unit Testing en React para Agentes de IA
+---
+name: tests automatizados
+description: Reglas para la generación con IA para tests automatizados
+tags: test testing jsdom vitest testing-library
+---
 
 ## Librerias de testing
 - NO instales nada nuevo.
@@ -119,3 +123,4 @@ Nota: `server.resetHandlers()` no borra los handlers base de `setupServer(...)`;
 
 ## Formato de Salida
 Cuando se te pida escribir un test, devuelve únicamente el código del test usando los imports de Vitest y React Testing Library. Asume que el entorno ya está configurado.
+

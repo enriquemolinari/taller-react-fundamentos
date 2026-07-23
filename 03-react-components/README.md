@@ -4,7 +4,7 @@
 
 ## Organización del Proyecto (`src/`)
 
-El código de este módulo está organizado en dos subcarpetas dentro de `src/`:
+El código de este módulo está organizado en tres subcarpetas dentro de `src/`:
 
 ```text
 src/
@@ -16,6 +16,8 @@ src/
  │    ├── MensajeBienvenida.jsx
  │    ├── TarjetaProducto.jsx
  │    └── DemoProps.jsx
+ ├── 03-iteraciones/          # Renderizado de listas iterando arreglos con .map()
+ │    └── DemoIteraciones.jsx
  ├── App.jsx                  # Interruptor para cambiar de demo en la clase
  └── main.jsx                 # Punto de entrada de React
 ```
@@ -227,4 +229,47 @@ export default function DemoProps() {
     </section>
   );
 }
+```
+
+---
+
+## Iteraciones en JSX (`.map()`)
+
+### Renderizar listas a partir de arreglos
+
+En React, para renderizar una lista de elementos dinámicamente a partir de un arreglo de datos de JavaScript, utilizamos el método `.map()`.
+
+#### Puntos clave:
+* **Uso de `.map()`**: Transforma cada elemento del arreglo en un elemento JSX.
+* **Propiedad `key`**: Cada elemento generado en una lista iterada debe tener una prop `key` única (por ejemplo, el `id` de cada objeto) para que React identifique y actualice la interfaz de manera eficiente.
+---
+
+### Ejemplo de Iteración (`DemoIteraciones.jsx`)
+
+En el archivo `src/03-iteraciones/DemoIteraciones.jsx` podemos encontrar:
+
+```jsx
+const DemoIteraciones = () => {
+  const cursos = [
+    { id: 1, nombre: 'React Fundamentos', nivel: 'Inicial' },
+    { id: 2, nombre: 'JavaScript Avanzado', nivel: 'Intermedio' },
+    { id: 3, nombre: 'CSS Flexbox y Grid', nivel: 'Inicial' },
+    { id: 4, nombre: 'Node.js y Express', nivel: 'Avanzado' }
+  ];
+
+  return (
+    <section>
+      <h2>Lista de Cursos (Iteración con .map)</h2>
+      <ul>
+        {cursos.map((curso) => (
+          <li key={curso.id}>
+            <strong>{curso.nombre}</strong> - Nivel: {curso.nivel}
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+};
+
+export default DemoIteraciones;
 ```
