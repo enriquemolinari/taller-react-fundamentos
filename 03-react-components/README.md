@@ -22,10 +22,10 @@ src/
 
 ---
 
-## Bloque 1: Concepto de Componente, Instanciación y JSX
+## Concepto de Componente, Instanciación y JSX
 
 ### 1. ¿Qué es un componente y cómo se define?
-Un **componente** es una función de JavaScript que retorna marcado JSX. Es la unidad básica reutilizable y aislada para construir UIs.
+Un **componente** es una función de JavaScript que retorna markup en forma de JSX. Es la construcción sintáctica más importante de React para construir UIs.
 
 #### Reglas de definición:
 1. **Función de JavaScript** (`function` o `arrow function`).
@@ -33,15 +33,13 @@ Un **componente** es una función de JavaScript que retorna marcado JSX. Es la u
 3. **Retorna JSX**: Retorna la estructura visual que queremos mostrar.
 
 #### De Mockups a Componentes
-Al diseñar una web en React, dividimos el mockup o boceto visual en "cajas" (componentes) y las organizamos en una jerarquía de árbol.
+Al diseñar una web en React, dividimos el mockup o boceto visual en componentes y las organizamos en una jerarquía de árbol.
 
 ---
 
-### Live Coding 1.1: Crear tu primer componente (`Encabezado.jsx`)
+### Crear tu primer componente (`Encabezado.jsx`)
 
-**Archivo de destino**: `src/01-componentes-y-jsx/Encabezado.jsx`
-
-Copia y pega el siguiente código para definir el componente `Encabezado`:
+En `src/01-componentes-y-jsx/Encabezado.jsx` podemos encontrar:
 
 ```jsx
 export default function Encabezado() {
@@ -56,18 +54,16 @@ export default function Encabezado() {
 
 ---
 
-### 2. ¿Qué es JSX y cómo usar las llaves `{}`?
+### ¿Qué es JSX y cómo usar las llaves `{}`?
 **JSX** (JavaScript XML) permite escribir etiquetas similares a HTML dentro de JavaScript. 
 
-Las **llaves `{}`** en JSX son una "ventana mágica" que nos permite ejecutar y mostrar cualquier expresión dinámica de JavaScript (variables, operaciones matemáticas, llamadas a funciones o ternarios).
+Las **llaves `{}`** en JSX nos permiten ejecutar y mostrar cualquier expresión de JavaScript (variables, operaciones matemáticas, llamadas a funciones o ternarios).
 
 ---
 
-### Live Coding 1.2: Expresiones en JSX (`PerfilUsuario.jsx`)
+### Expresiones en JSX (`PerfilUsuario.jsx`)
 
-**Archivo de destino**: `src/01-componentes-y-jsx/PerfilUsuario.jsx`
-
-Copia y pega el siguiente código para mostrar expresiones dinámicas con `{}`:
+En el archivo `src/01-componentes-y-jsx/PerfilUsuario.jsx` podemos encontrar:
 
 ```jsx
 export default function PerfilUsuario() {
@@ -99,18 +95,17 @@ export default function PerfilUsuario() {
 
 ---
 
-### 3. ¿Cómo se instancian los componentes?
+### ¿Cómo se instancian los componentes?
 Instanciar significa usar el componente en JSX como una etiqueta:
 * Etiquetas en minúscula (`<div>`, `<h1>`, `<p>`): Elementos nativos de HTML.
-* Etiquetas en Mayúscula (`<Encabezado />`, `<PerfilUsuario />`): Componentes de React que ejecutan nuestra función.
+* Etiquetas en Mayúscula (`<Encabezado />`, `<PerfilUsuario />`): Componentes de React que 
+**ejecutan** nuestra función.
 
 ---
 
-### Live Coding 1.3: Instanciar y agrupar (`DemoComponentesYJsx.jsx`)
+### Instanciar y agrupar (`DemoComponentesYJsx.jsx`)
 
-**Archivo de destino**: `src/01-componentes-y-jsx/DemoComponentesYJsx.jsx`
-
-Copia y pega este código para instanciar ambos componentes:
+En el archivo `src/01-componentes-y-jsx/DemoComponentesYJsx.jsx` podemos encontrar:
 
 ```jsx
 import Encabezado from './Encabezado';
@@ -129,23 +124,20 @@ export default function DemoComponentesYJsx() {
 
 ---
 
-## Bloque 2: Props en React (Concepto y Reutilización)
+## Props en React (Concepto y Reutilización)
 
-### 1. ¿Qué son las Props?
+### ¿Qué son las Props?
 Las **Props** (propiedades) son los argumentos de entrada que recibe un componente. Permiten pasar datos desde un componente padre hacia un componente hijo.
 
 #### Características de las Props:
 * **Flujo Unidireccional**: Viajan únicamente de Padre -> Hijo.
-* **Inmutables (Solo Lectura)**: El componente hijo jamás debe modificar las props que recibe.
-* **Desestructuración**: En lugar de usar `props.nombre`, solemos desestructurarlas directamente en la firma de la función: `function MiComponente({ nombre, edad })`.
+* **Desestructuración**: Se recibe como un objeto al que por convención se lo llama `props` (es solo una convención, no es obligatorio). Ahora, en su lugar podemos usar la desestructuración de objetos en la firma de la función para recibir las variables (o propiedades del objeto) directamente: `function MiComponente({ nombre, edad })`.
 
 ---
 
-### Live Coding 2.1: Crear componente con Props (`MensajeBienvenida.jsx`)
+### Crear componente con Props (`MensajeBienvenida.jsx`)
 
-**Archivo de destino**: `src/02-props/MensajeBienvenida.jsx`
-
-Copia y pega el código para crear un saludo personalizado que acepte props con valores por defecto:
+En el archivo `src/02-props/MensajeBienvenida.jsx` podemos encontrar:
 
 ```jsx
 // Desestructuramos las props y asignamos un valor por defecto a 'rol'
@@ -161,11 +153,9 @@ export default function MensajeBienvenida({ nombre, rol = 'Estudiante' }) {
 
 ---
 
-### Live Coding 2.2: Props con diferentes tipos de datos (`TarjetaProducto.jsx`)
+### Props con diferentes tipos de datos (`TarjetaProducto.jsx`)
 
-**Archivo de destino**: `src/02-props/TarjetaProducto.jsx`
-
-Copia y pega este componente que recibe datos en formato texto, número, booleano y array:
+En el archivo `src/02-props/TarjetaProducto.jsx` podemos encontrar:
 
 ```jsx
 export default function TarjetaProducto({ titulo, precio, enStock, etiquetas }) {
@@ -192,11 +182,9 @@ export default function TarjetaProducto({ titulo, precio, enStock, etiquetas }) 
 
 ---
 
-### Live Coding 2.3: Reutilización pasando diferentes Props (`DemoProps.jsx`)
+### Reutilización pasando diferentes Props (`DemoProps.jsx`)
 
-**Archivo de destino**: `src/02-props/DemoProps.jsx`
-
-Copia y pega este código para mostrar cómo reutilizar componentes pasando distintas props:
+En el archivo `src/02-props/DemoProps.jsx` podemos encontrar:
 
 ```jsx
 import MensajeBienvenida from './MensajeBienvenida';
@@ -240,39 +228,3 @@ export default function DemoProps() {
   );
 }
 ```
-
----
-
-## ¿Cómo alternar entre Demos en clase?
-
-**Archivo de control**: `src/App.jsx`
-
-Para mostrar la **Demo 1** o la **Demo 2** durante la explicación en vivo, abre `src/App.jsx` y comenta/descomenta las líneas correspondientes:
-
-```jsx
-// 1. Para mostrar el Bloque 1 (Componentes y JSX):
-import DemoComponentesYJsx from './01-componentes-y-jsx/DemoComponentesYJsx';
-
-export default function App() {
-  return (
-    <main style={{ fontFamily: 'sans-serif', padding: '2rem', maxWidth: '800px', margin: '0 auto' }}>
-      <DemoComponentesYJsx />
-    </main>
-  );
-}
-```
-
-```jsx
-// 2. Para mostrar el Bloque 2 (Props y Reutilización):
-import DemoProps from './02-props/DemoProps';
-
-export default function App() {
-  return (
-    <main style={{ fontFamily: 'sans-serif', padding: '2rem', maxWidth: '800px', margin: '0 auto' }}>
-      <DemoProps />
-    </main>
-  );
-}
-```
-
-Al guardar `src/App.jsx`, Vite actualizará automáticamente el navegador en caliente (HMR).
