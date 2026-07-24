@@ -1,7 +1,7 @@
 import ContadorVariableLocal from './01-variable-local/ContadorVariableLocal';
 import ContadorEstado from './02-usestate/ContadorEstado';
-import Home from './03-comunicacion-estado/Home';
-import ContenedorZustand from './04-estado-con-zustand/ContenedorZustand';
+import Home from './04-estado-con-zustand/Home';
+//import ContenedorZustand from './04-estado-con-zustand/ContenedorZustand';
 
 
 export default function App() {
@@ -18,13 +18,13 @@ export default function App() {
       {/* <ContadorVariableLocal /> */}
 
       {/* Demostración 2: useState (Forma correcta) */}
-      {/* <ContadorEstado /> */}
+      <ContadorEstado />
 
       {/* Demostración 3: Comunicación de Estado entre Componentes con useState y Props */}
-      <Home />
+      {/* <Home /> */}
 
       {/* Demostración 4: Estructura preparada para ejercicio con Zustand */}
-      {/* <ContenedorZustand /> */}
+      {/* <Home /> */}
     </main>
   );
 }

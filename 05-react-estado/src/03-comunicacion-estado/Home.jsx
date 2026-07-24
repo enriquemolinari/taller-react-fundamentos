@@ -29,7 +29,7 @@ export default function Home() {
       <span className="badge badge-success">Elevación de Estado (Lifting State Up)</span>
       <h2>3. Comunicación de Estado entre Componentes</h2>
       <p>
-        El estado <code>vistaActiva</code> vive en este componente Padre (<code>ContenedorComunicacion</code>).
+        El estado <code>vistaActiva</code> vive en este componente Padre (<code>Home</code>).
         Pasa el estado al <code>Body</code> para saber qué mostrar y pasa la función <code>alSeleccionarVista</code> al <code>Menu</code> para que el hijo pueda actualizar el estado del padre.
       </p>
 

@@ -1,6 +1,6 @@
 # 05. Estado en React (`useState`)
 
-El **estado** en React representa los datos dinámicos que cambian con el tiempo dentro de un componente y que determinan lo que se dibuja en la pantalla (Interfaz de Usuario). Cuando el estado de un componente cambia, React automáticamente solicita un **re-renderizado** para reflejar esos cambios visualmente.
+El **estado** en React representa los datos dinámicos que cambian durante la ejecución dentro de un componente y que determinan lo que se dibuja (rendiriza) en la pantalla. Cuando el estado de un componente cambia, React automáticamente solicita un **re-renderizado** para reflejar esos cambios visualmente.
 
 ---
 
@@ -22,10 +22,13 @@ src/
  │    ├── Welcome.jsx
  │    └── Users.jsx
  ├── 04-estado-con-zustand/    # Estado global con Zustand
- │    ├── useVistaStore.js
- │    ├── MenuZustand.jsx
- │    ├── BodyZustand.jsx
- │    └── ContenedorZustand.jsx
+ │    ├── Home.jsx
+ │    ├── useVistaStore.js     # Defino aquí la función que representa el store con el estado y los setters.
+ │    ├── Menu.jsx
+ │    ├── Body.jsx
+ │    ├── Post.jsx
+ │    ├── Welcome.jsx
+ │    └── Users.jsx
  ├── App.jsx                       # Componente principal selector de demostraciones
  ├── main.jsx                      # Punto de entrada en React
  └── index.css                     # Estilos didácticos del módulo
@@ -38,7 +41,7 @@ src/
 Una función componente de React se ejecuta completamente cada vez que se rinde o vuelve a renderizar. 
 
 Si declaras una variable local tradicional dentro de la función (ej. `let contador = 0;`):
-1. **No hay notificaciones a React**: Modificar la variable (`contador++`) modifica solo un valor en la memoria RAM de JavaScript. React no se entera de que ocurrió un cambio ni sabe que debe volver a dibujar el HTML en pantalla.
+1. **No hay notificaciones a React**: Modificar la variable (`contador++`) modifica solo un valor en la memoria RAM de JavaScript. React no se entera de que ocurrió un cambio ni sabe que debe volver a dibujar (re-renderizar) el HTML en pantalla.
 2. **Re-inicialización de variables**: Si el componente se vuelve a renderizar por otra razón, la función vuelve a ejecutarse desde la primera línea y la variable local se **reinicializa** a su valor inicial (`0`), perdiendo el valor previo.
 
 ---
@@ -75,11 +78,11 @@ export default function ContadorVariableLocal() {
 
 ---
 
-## 2. Contador con `useState` — La Forma Correcta
+## 2. Contador con `useState` - La Forma Correcta
 
 Ubicación del archivo: [ContadorEstado.jsx](file:///home/enrique/workspaces/taller-react-fundamentos/05-react-estado/src/02-usestate/ContadorEstado.jsx)
 
-El Hook `useState` resuelve el problema guardando el valor fuera de la invocación de la función dentro del motor interno de React.
+El Hook `useState` resuelve el problema guardando el valor fuera de la invocación de la función dentro del motor interno de React. Genera una especie de variable de instancia del componente.
 
 ### Código exacto:
 ```jsx
@@ -112,24 +115,25 @@ export default function ContadorEstado() {
 
 ## 3. Comunicación de Estado entre Componentes
 
-Cuando dos componentes hermanos (como un menú de navegación y una zona de contenido principal) necesitan coordinarse, el estado debe **elevarse al componente Padre común** (técnica conocida como *Lifting State Up*).
+Cuando dos componentes hermanos (como un menú de navegación y una zona de contenido principal) necesitan coordinarse, el estado debe **elevarse al componente padre común** (técnica conocida como *Lifting State Up*).
 
 Ubicación de los archivos:
-- Contenedor Padre: [ContenedorComunicacion.jsx](file:///home/enrique/workspaces/taller-react-fundamentos/05-react-estado/src/03-comunicacion-estado/ContenedorComunicacion.jsx)
+- Contenedor Padre: [Home.jsx](file:///home/enrique/workspaces/taller-react-fundamentos/05-react-estado/src/03-comunicacion-estado/Home.jsx)
 - Menú Navegador: [Menu.jsx](file:///home/enrique/workspaces/taller-react-fundamentos/05-react-estado/src/03-comunicacion-estado/Menu.jsx)
 - Contenido Body: [Body.jsx](file:///home/enrique/workspaces/taller-react-fundamentos/05-react-estado/src/03-comunicacion-estado/Body.jsx)
-- Consumo API Posts: [Post.jsx](file:///home/enrique/workspaces/taller-react-fundamentos/05-react-estado/src/03-comunicacion-estado/Post.jsx)
-- Consumo API Users: [Users.jsx](file:///home/enrique/workspaces/taller-react-fundamentos/05-react-estado/src/03-comunicacion-estado/Users.jsx)
+- Contenido Posts: [Post.jsx](file:///home/enrique/workspaces/taller-react-fundamentos/05-react-estado/src/03-comunicacion-estado/Post.jsx)
+- Contenido Users: [Users.jsx](file:///home/enrique/workspaces/taller-react-fundamentos/05-react-estado/src/03-comunicacion-estado/Users.jsx)
+- Contenido Welcome: [Welcome.jsx](file:///home/enrique/workspaces/taller-react-fundamentos/05-react-estado/src/03-comunicacion-estado/Welcome.jsx)
 
-### Ejemplo exacto del Padre (`ContenedorComunicacion.jsx`):
+### Ejemplo exacto del Padre (`Home.jsx`):
 ```jsx
 import { useState } from 'react';
 import Menu from './Menu';
 import Body from './Body';
 
-export default function ContenedorComunicacion() {
+export default function Home() {
   // El estado vive en el padre
-  const [vistaActiva, setVistaActiva] = useState('posts');
+  const [vistaActiva, setVistaActiva] = useState('welcome');
 
   function cambiarVista(nuevaVista) {
     setVistaActiva(nuevaVista);
@@ -151,9 +155,11 @@ export default function ContenedorComunicacion() {
 
 ## 4. Estado con Zustand (`04-estado-con-zustand`)
 
-En la carpeta `src/04-estado-con-zustand/` encontrarás el mismo problema anterior pero implementado utilizando Zustand. En lugar de utilizar la estrategia de elevación de estado (lifting state up), se utiliza Zustand para gestionar el estado global de la aplicación.
+En la carpeta `src/04-estado-con-zustand/` encontrarás el mismo problema anterior pero implementado utilizando la librería `Zustand`. En lugar de utilizar la estrategia de elevación de estado (lifting state up), se utiliza Zustand para gestionar el estado de la aplicación.
 
 Instalación:
 ```bash
 npm install zustand
 ```
+
+

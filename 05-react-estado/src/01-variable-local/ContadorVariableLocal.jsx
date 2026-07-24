@@ -16,8 +16,8 @@ export default function ContadorVariableLocal() {
     contador = contador + 1;
     // La variable cambia en memoria, lo verificamos por la consola del navegador
     console.log(`[Variable Local] Valor actual de contador en memoria: ${contador}`);
-    
-    // Forzamos un log visual en la UI cambiando el texto del elemento de logs si existiera
+
+    // Modificamos el DOM explícitamente (usando el estado como se debe de esto se encarga React)
     const logElement = document.getElementById('log-variable-local');
     if (logElement) {
       logElement.innerText = `Log en vivo (DOM): Variable en memoria vale ${contador}, pero la UI renderizada abajo NO cambia.`;
@@ -29,8 +29,9 @@ export default function ContadorVariableLocal() {
       <span className="badge badge-error">Demostración: LO QUE NO FUNCIONA</span>
       <h2>1. Contador con Variable Local (`let`)</h2>
       <p>
-        Al hacer clic en el botón, la variable local <code>contador</code> se incrementa en memoria (revisa la consola <code>F12</code>), 
+        Al hacer clic en el botón, la variable local <code>contador</code> se incrementa en memoria (revisa la consola <code>F12</code>),
         pero React <strong>no detecta el cambio</strong> ni solicita un re-renderizado del componente.
+        En el LOG en vivo del DOM estamos realizando una actualización del DOM explícitamente como haciamos antes de React con JQuery.
       </p>
 
       <div className="contador-display">
