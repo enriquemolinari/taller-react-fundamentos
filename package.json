@@ -5,7 +5,9 @@
   "workspaces": [
     "01-js-fundamentos",
     "02-react-with-vite",
-    "03-react-components"
+    "03-react-components",
+    "04-react-eventos",
+    "05-react-estado"
   ],
   "author": "Enrique Molinari"
 }

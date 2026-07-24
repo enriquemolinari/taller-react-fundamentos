@@ -12,6 +12,8 @@ Estes es un proyecto *npm* monorepo utilizando [npm workspaces](https://docs.npm
 
 - **[04 - Eventos en React](04-react-eventos/README.md)**: Estudia el manejo de eventos en React, cubriendo <code>onClick</code> en botones y enlaces, <code>onMouseOver</code> y comparativa de funciones declaradas fuera e inline.
 
+- **[05 - Estado en React](05-react-estado/README.md)**: Explica qué es el estado en React, por qué no funcionan las variables locales, el uso de <code>useState</code>, re-renderizados, comunicación de estado mediante props/handlers y una preparación para Zustand.
+
 ## Extensiones recomendadas para Visual Studio Code
 
 - Format on Save habilitado
