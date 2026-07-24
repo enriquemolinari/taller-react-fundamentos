@@ -162,4 +162,50 @@ Instalación:
 npm install zustand
 ```
 
+Lo primero que se debe hacer con Zustand es crear el store. El store en general se define en archivos con nombres que terminan en store.js, donde se define el o los estados y las funciones que los modifican.
+El store se define de la siguiente manera: 
+```jsx
+import { create } from 'zustand';
 
+export const useVistaStore = create((set) => ({
+    //estado
+    vistaActiva: 'welcome',
+    //funciones que modifica el estado
+    cambiarVista: (nuevaVista) => set({ vistaActiva: nuevaVista }),
+}));
+```
+`vistaActiva` es el estado en sí, que me interesa que esté disponible para los componentes que lo necesiten y que dichos componentes se re-rendericen cuando éste cambie.
+`cambiarVista` es la función que me permite modificar el estado y que hace que los componentes que se suscribieron al store se re-rendericen cuando éste cambie. Un punto muy importante es que el uso de la función `set` recibe como parámetro un objeto y lo **mergea** con el contenido actual del store. Las keys del objeto que existan seran reemplazadas por las del objeto pasado como parámetro y las que existan y no esten en el objeto pasado como parámetro no seran modificadas. 
+
+La forma de que un componente se subscriba a un estado, es simplemente asi:
+
+```jsx
+import { useVistaStore } from './useVistaStore';
+
+function UnComponente() {
+  const vistaActiva = useVistaStore((state) => state.vistaActiva);
+  return (
+    <div>
+        <h1>El estado actual es: {vistaActiva}</h1>
+    </div>
+  );
+}
+```
+
+Ahora, si un componente necesita modificar el estado, lo hace de la siguiente manera:
+
+```jsx
+import { useVistaStore } from './useVistaStore';
+
+function OtroComponente() {
+  const cambiarVista = useVistaStore((state) => state.cambiarVista);
+  return (
+    <nav>
+      <button onClick={() => cambiarVista('welcome')}>Welcome</button>
+      <button onClick={() => cambiarVista('posts')}>Posts</button>
+      <button onClick={() => cambiarVista('users')}>Users</button>
+    </nav>
+  );
+}
+```
+Cualquier click en los botones de `OtroComponente` hace que se cambie la variable `vistaActiva` que está en el store y por lo tanto se re-renderice el componente `UnComponente` que está subscrito a esa variable. De esta forma se evita tener que pasar props entre componentes y se facilita la comunicación entre componentes distantes.
