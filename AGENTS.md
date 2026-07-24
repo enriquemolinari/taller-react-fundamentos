@@ -14,3 +14,9 @@ Cada módulo debe contener:
 - **Claridad didáctica**: Código limpio, bien comentado, fácil de seguir para estudiantes.
 - **Nombres explícitos**: PascalCase para componentes, funciones exportadas por defecto o nombradas según convención.
 - **Ejemplos progresivos**: De conceptos básicos a casos combinados.
+
+## Importante
+
+NUNCA en un clase utilices algo de react que NO hayamos enseñado previamente. Por ejemplo, dentro del módulo sobre Eventos, no podemos usar useState ya que todavia no lo hemos enseñado.
+
+No ejecutes nunca npm run build, porque se me acaban los tokens. Minimiza todo lo que puedas.
