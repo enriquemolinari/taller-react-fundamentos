@@ -10,6 +10,8 @@ Estes es un proyecto *npm* monorepo utilizando [npm workspaces](https://docs.npm
 
 - **[03 - Componentes en React](03-react-components/README.md)**: Explora la creación y uso de componentes en React, los bloques fundamentales para construir interfaces de usuario.
 
+- **[04 - Eventos en React](04-react-eventos/README.md)**: Estudia el manejo de eventos en React, cubriendo <code>onClick</code> en botones y enlaces, <code>onMouseOver</code> y comparativa de funciones declaradas fuera e inline.
+
 ## Extensiones recomendadas para Visual Studio Code
 
 - Format on Save habilitado
