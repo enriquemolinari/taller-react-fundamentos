@@ -149,16 +149,23 @@ export default function CajaMouseOver() {
 
 ---
 
-## 4. Comparativa: Declaración Fuera vs. Dentro (Inline) del JSX
+## 4. Comparativa: Referencia Directa vs. Invocación / Funciones Inline
 
-Existen dos formas principales de vincular un evento con su función manejadora en React:
+Es fundamental entender la diferencia entre **pasar la referencia de una función** y **declarar/invocar una función inline** en el JSX.
 
 Ubicación del archivo: [ComparativaVinculacion.jsx](file:///home/enrique/workspaces/taller-react-fundamentos/04-react-eventos/src/04-comparativa-vinculacion/ComparativaVinculacion.jsx)
 
-| Criterio | Forma 1: Función Declarada Fuera de JSX | Forma 2: Función Declarada Inline Dentro de JSX |
-| :--- | :--- | :--- |
-| **Sintaxis** | `<button onClick={handleClick}>` | `<button onClick={() => handleClick(id)}>` |
-| **Cuándo usarla** | Cuando la lógica es extensa, se reutiliza en varios elementos, o no requiere argumentos extra. | Para acciones inmediatas de 1 línea (`alert('Hola')`) o para pasar argumentos personalizados. |
-| **Legibilidad del JSX** | **Alta**: Mantiene la plantilla HTML/JSX limpia y legible. | **Media/Baja**: Si la lógica tiene muchas líneas, ensucia el marcado visual. |
-| **Paso de Parámetros** | El navegador le pasa implícitamente el objeto `event` (`e`). | Permite pasar parámetros personalizados de manera directa: `() => eliminar(item.id)`. |
-| **Rendimiento** | La referencia a la función se mantiene constante entre ejecuciones. | Crea una nueva instancia de función en cada renderizado. |
+### Tres Casos Comunes:
+
+1. **Referencia Directa:** `onClick={handleClick}`
+   - Se pasa únicamente el nombre de la función declarada fuera del JSX, dentro del componente.
+   - React la ejecutará solo cuando ocurra el evento.
+   - Recibe automáticamente el objeto de evento `e` como primer parámetro.
+
+2. **Invocación Envolvente (para pasar parámetros):** `onClick={() => handleClickConParametro('Juan', 42)}`
+   - Si escribes `onClick={handleClickConParametro('Juan', 42)}` **¡SE EJECUTARÁ DE INMEDIATO!** al renderizar el componente (un error muy común).
+   - Para evitar la ejecución inmediata cuando necesitas enviar argumentos personalizados, debes **envolver la invocación en una función flecha (arrow function)**.
+
+3. **Lógica Inline Completa:** `onClick={(e) => console.log('Click directo', e)}`
+   - La lógica del manejador se escribe directamente dentro de la prop del elemento JSX.
+   - Ideal para código muy breve (1 o 2 líneas) que no se reutiliza en otra parte.
