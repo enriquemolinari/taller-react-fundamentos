@@ -7,7 +7,8 @@
     "02-react-with-vite",
     "03-react-components",
     "04-react-eventos",
-    "05-react-estado"
+    "05-react-estado",
+    "06-react-fetching-data"
   ],
   "author": "Enrique Molinari"
 }

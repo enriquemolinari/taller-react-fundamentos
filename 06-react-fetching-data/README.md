@@ -175,14 +175,37 @@ Mismo patrón que `Post.jsx`, aplicado al endpoint de usuarios. Ver el archivo p
 
 Carpeta reservada para la implementación de **React TanStack Query** por el alumno.
 
-> TanStack Query simplifica el patrón de fetching: maneja automáticamente los estados de carga, error, caché, re-fetching y mucho más, sin tener que escribir los `useState` y `useEffect` manualmente.
+TanStack Query simplifica el patrón de fetching: maneja automáticamente los estados de carga, error, caché, re-fetching y mucho más, sin tener que escribir los `useState` y `useEffect` manualmente.
 
----
-
-## Cómo ejecutar
+Para instalar TanStack Query ejecutá en la terminal desde la carpeta del proyecto:
 
 ```bash
-cd 06-react-fetching-data
-npm install
-npm run dev
+npm i @tanstack/react-query
+```
+
+Para utilizar TanStack Query en lugar de useEffect, primero debemos envolver nuestra aplicación en un `QueryClientProvider` y crear un `QueryClient` que será compartido por todos los componentes que utilizan TanStack Query. Esto lo hacemos en `App.jsx`:
+
+```jsx
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+
+const queryClient = new QueryClient()
+<>
+  <QueryClientProvider client={queryClient}>
+    <Home />
+  </QueryClientProvider>
+</>
+```
+
+Para utilizar TanStack Query en lugar de useEffect, simplemente importamos `useQuery` desde `@tanstack/react-query` y lo usamos en el componente.
+
+```jsx
+export default function Post() {
+  //data: posts significa que a la data que devuelve useQuery le ponemos el alias posts
+  const { data: posts, isLoading, error } = useQuery({
+    queryKey: ['posts'],
+    queryFn: () => fetch('https://jsonplaceholder.typicode.com/posts').then((res) => res.json()),
+    // 1 minuto en cache, no hace el resquest hasta que pase el tiempo
+    // o se invalide explícitamente con queryClient.invalidateQueries({ queryKey: ['posts'] })
+    staleTime: 1 * 60 * 1000
+  });
 ```
