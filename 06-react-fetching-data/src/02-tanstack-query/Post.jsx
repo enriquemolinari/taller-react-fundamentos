@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 /**
- * Componente Post: obtiene posts desde la API real usando useEffect.
+ * Componente Post: obtiene posts desde la API real usando TanStack Query.
  *
  * Antes, los datos estaban hardcodeados en el componente.
  * Ahora los cargamos desde: https://jsonplaceholder.typicode.com/posts

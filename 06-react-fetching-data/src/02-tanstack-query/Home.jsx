@@ -9,12 +9,12 @@ export default function Home() {
 
   return (
     <section className="card">
-      <span className="badge badge-info">useEffect + Zustand</span>
-      <h2>Fetching Data con useEffect</h2>
+      <span className="badge badge-info">TanStack Query + Zustand</span>
+      <h2>Fetching Data con TanStack Query</h2>
       <p>
         Los componentes <code>Post</code> y <code>Users</code> ahora obtienen sus datos
-        desde la API real usando <code>useEffect</code>. El estado de navegación sigue
-        siendo manejado por Zustand.
+        desde la API real usando <code>useQuery</code> de TanStack Query. El estado de
+        navegación sigue siendo manejado por Zustand.
       </p>
 
       <Menu vistaActiva={vistaActiva} />

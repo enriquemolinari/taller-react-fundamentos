@@ -1,6 +1,6 @@
 # 06 - React Fetching Data
 
-Aquí estudiaremos como consumir datos de una API en React utilizando `useEffect`. Tambien veremos como podemos hacerlo utilizando una libreria externa al framework como es `TanStack Query` (antes llamada React Query). `TanStack Query` es el estadar de facto para manejar el fetching de datos en React.
+Aquí estudiaremos cómo consumir datos de una API en React utilizando `useEffect`. También veremos cómo hacerlo con la librería `TanStack Query` (antes llamada React Query), que es el estándar de facto para el manejo de fetching de datos en React.
 
 ---
 
@@ -20,7 +20,13 @@ src/
 │   ├── Users.jsx
 │   └── useVistaStore.js
 └── 02-tanstack-query/
-    └── README.md         ← reservado para implementar por el alumno
+    ├── Home.jsx
+    ├── Menu.jsx
+    ├── Body.jsx
+    ├── Welcome.jsx
+    ├── Post.jsx
+    ├── Users.jsx
+    └── useVistaStore.js
 ```
 
 ---
@@ -173,30 +179,58 @@ Mismo patrón que `Post.jsx`, aplicado al endpoint de usuarios. Ver el archivo p
 
 ## Ejemplo: `02-tanstack-query/`
 
-Carpeta reservada para la implementación de **React TanStack Query** por el alumno.
+Esta carpeta reimplementa la misma aplicación (misma estructura de componentes, mismo Zustand para la navegación) pero reemplaza `useEffect` + `useState` manual por **TanStack Query**.
 
-TanStack Query simplifica el patrón de fetching: maneja automáticamente los estados de carga, error, caché, re-fetching y mucho más, sin tener que escribir los `useState` y `useEffect` manualmente.
+### ¿Por qué TanStack Query?
 
-Para instalar TanStack Query ejecutá en la terminal desde la carpeta del proyecto:
+Con `useEffect` tenemos que administrar manualmente tres variables de estado (`cargando`, `error`, `datos`), escribir el fetch, y recordar el arreglo de dependencias. TanStack Query encapsula todo eso y además agrega:
+
+- **Caché automático**: si ya se cargaron los datos, no vuelve a hacer la petición hasta que venzan.
+- **Re-fetch inteligente**: al volver a enfocar la ventana, refresca los datos si están desactualizados.
+- **Reintentos automáticos**: por defecto reintenta 3 veces si hay un error de red.
+- **Estados derivados listos**: `isLoading`, `isError`, `isSuccess` sin código extra.
+
+### Instalación
 
 ```bash
 npm i @tanstack/react-query
 ```
 
-Para utilizar TanStack Query en lugar de useEffect, primero debemos envolver nuestra aplicación en un `QueryClientProvider` y crear un `QueryClient` que será compartido por todos los componentes que utilizan TanStack Query. Esto lo hacemos en `App.jsx`:
+### Configuración en [`App.jsx`](./src/App.jsx)
+
+Para que `useQuery` funcione, toda la aplicación debe estar envuelta en un `QueryClientProvider`. El `QueryClient` es el objeto que gestiona la caché compartida entre todos los componentes.
 
 ```jsx
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
-const queryClient = new QueryClient()
-<>
-  <QueryClientProvider client={queryClient}>
-    <Home />
-  </QueryClientProvider>
-</>
+const queryClient = new QueryClient();
+
+<QueryClientProvider client={queryClient}>
+  <Home />
+</QueryClientProvider>
 ```
 
-Para utilizar TanStack Query en lugar de useEffect, simplemente importamos `useQuery` desde `@tanstack/react-query` y lo usamos en el componente.
+### [`Home.jsx`](./src/02-tanstack-query/Home.jsx)
+
+Idéntico al de `01-useeffect-fetching` en estructura, actualizado para reflejar que usa TanStack Query. Obtiene `vistaActiva` de Zustand y renderiza `Menu` y `Body`.
+
+```jsx
+export default function Home() {
+  const vistaActiva = useVistaStore((state) => state.vistaActiva);
+  return (
+    <section className="card">
+      <span className="badge badge-info">TanStack Query + Zustand</span>
+      <h2>Fetching Data con TanStack Query</h2>
+      <Menu vistaActiva={vistaActiva} />
+      <Body vistaActiva={vistaActiva} />
+    </section>
+  );
+}
+```
+
+### [`Post.jsx`](./src/02-tanstack-query/Post.jsx)
+
+Reemplaza el triplete `useState` + `useEffect` por una sola llamada a `useQuery`.
 
 ```jsx
 export default function Post() {
@@ -208,4 +242,79 @@ export default function Post() {
     // o se invalide explícitamente con queryClient.invalidateQueries({ queryKey: ['posts'] })
     staleTime: 1 * 60 * 1000
   });
+
+  if (isLoading) return <p className="loading-msg">Cargando publicaciones desde la API...</p>;
+  if (error) return <p className="error-msg">Error al cargar los posts: {error.message}</p>;
+
+  return ( /* ... renderizado de la lista de posts ... */ );
+}
 ```
+
+**Claves del objeto de configuración de `useQuery`:**
+
+| Propiedad | Qué hace |
+|---|---|
+| `queryKey` | Identificador único de la query en la caché. Si dos componentes usan la misma `queryKey`, comparten la misma caché. |
+| `queryFn` | La función que realiza el fetch. Debe retornar una Promise. |
+| `staleTime` | Tiempo en ms que los datos se consideran "frescos". Durante ese tiempo no se vuelve a hacer el request. |
+
+### [`Users.jsx`](./src/02-tanstack-query/Users.jsx)
+
+Mismo patrón que `Post.jsx` pero con dos diferencias: usa `async/await` y verifica `res.ok` manualmente.
+
+```jsx
+export default function Users() {
+  const { data: users, isLoading, error } = useQuery({
+    queryKey: ['users'],
+    // retry: 0 → falla rápido sin reintentos. Por defecto hay 3 intentos.
+    retry: 0,
+    queryFn: async () => {
+      const res = await fetch('https://jsonplaceholder.typicode.com/users');
+      // fetch() no lanza error en respuestas HTTP 4xx/5xx.
+      // Hay que verificar res.ok manualmente y lanzar el error para que
+      // useQuery lo capture y actualice el estado de error.
+      if (!res.ok) {
+        throw new Error(`Error HTTP: ${res.status}`);
+      }
+      return res.json();
+    },
+  });
+
+  if (isLoading) return <p className="loading-msg">Cargando usuarios desde la API...</p>;
+  if (error) return <p className="error-msg">Error al cargar los usuarios: {error.message}</p>;
+
+  return ( /* ... renderizado de la lista de usuarios ... */ );
+}
+```
+
+> **Importante**: `fetch()` **no lanza una excepción** para errores HTTP como 404 o 500. Solo falla si hay un problema de red (sin conexión, CORS, etc.). Por eso, si queremos que `useQuery` capture esos errores correctamente, debemos verificar `res.ok` y lanzar el error manualmente.
+
+### [`useVistaStore.js`](./src/02-tanstack-query/useVistaStore.js)
+
+Store de Zustand idéntico al de `01-useeffect-fetching`. Maneja la navegación entre vistas (`welcome`, `posts`, `users`) de forma global, sin necesidad de pasar props entre componentes.
+
+```js
+export const useVistaStore = create((set) => ({
+  // estado: la vista que está actualmente activa
+  vistaActiva: 'welcome',
+  // función que permite cambiar ese estado
+  cambiarVista: (nuevaVista) => set({ vistaActiva: nuevaVista }),
+}));
+```
+
+### [`Menu.jsx`](./src/02-tanstack-query/Menu.jsx) y [`Body.jsx`](./src/02-tanstack-query/Body.jsx)
+
+Idénticos en lógica a los de `01-useeffect-fetching`. `Menu` lee `cambiarVista` del store; `Body` renderiza condicionalmente `Welcome`, `Post` o `Users` según `vistaActiva`.
+
+---
+
+## Comparación: `useEffect` vs TanStack Query
+
+| Aspecto | `useEffect` | TanStack Query |
+|---|---|---|
+| Estados a manejar manualmente | `cargando`, `error`, `datos` (3 `useState`) | `isLoading`, `error`, `data` (automáticos) |
+| Caché | ❌ No existe | ✅ Automático por `queryKey` |
+| Reintentos ante error | ❌ Hay que implementarlo | ✅ 3 reintentos por defecto |
+| Re-fetch al enfocar la ventana | ❌ No existe | ✅ Automático |
+| Boilerplate | Alto | Bajo |
+| Dependencias externas | Ninguna | `@tanstack/react-query` |

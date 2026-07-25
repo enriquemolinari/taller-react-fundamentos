@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 /**
- * Componente Users: obtiene usuarios desde la API real usando useEffect.
+ * Componente Users: obtiene usuarios desde la API real usando TanStack Query.
  *
  * Antes, los datos estaban hardcodeados en el componente.
  * Ahora los cargamos desde: https://jsonplaceholder.typicode.com/users
@@ -26,6 +26,9 @@ export default function Users() {
     retry: 0,
     queryFn: async () => {
       const res = await fetch('https://jsonplaceholder.typicode.com/users');
+      // fetch() no lanza error en respuestas HTTP 4xx/5xx.
+      // Hay que verificar res.ok manualmente y lanzar el error para que
+      // useQuery lo capture y actualice el estado de error.
       if (!res.ok) {
         throw new Error(`Error HTTP: ${res.status}`);
       }
