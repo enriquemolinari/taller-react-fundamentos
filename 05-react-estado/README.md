@@ -153,7 +153,7 @@ export default function Home() {
 
 ---
 
-## 4. Estado con Zustand (`04-estado-con-zustand`)
+## 4. Estado con Zustand
 
 En la carpeta `src/04-estado-con-zustand/` encontrarás el mismo problema anterior pero implementado utilizando la librería `Zustand`. En lugar de utilizar la estrategia de elevación de estado (lifting state up), se utiliza Zustand para gestionar el estado de la aplicación.
 
@@ -162,20 +162,20 @@ Instalación:
 npm install zustand
 ```
 
-Lo primero que se debe hacer con Zustand es crear el store. El store en general se define en archivos con nombres que terminan en store.js, donde se define el o los estados y las funciones que los modifican.
-El store se define de la siguiente manera: 
+Lo primero que se debe hacer con Zustand es crear el store. En este caso, en [useVistaStore.js](file:///home/enrique/workspaces/taller-react-fundamentos/05-react-estado/src/04-estado-con-zustand/useVistaStore.js). Observar que se define en un archivo javascript (.js) y no en un componente de React (.jsx).
+
 ```jsx
 import { create } from 'zustand';
 
 export const useVistaStore = create((set) => ({
     //estado
     vistaActiva: 'welcome',
-    //funciones que modifica el estado
+    //función que modifica el estado
     cambiarVista: (nuevaVista) => set({ vistaActiva: nuevaVista }),
 }));
 ```
 `vistaActiva` es el estado en sí, que me interesa que esté disponible para los componentes que lo necesiten y que dichos componentes se re-rendericen cuando éste cambie.
-`cambiarVista` es la función que me permite modificar el estado y que hace que los componentes que se suscribieron al store se re-rendericen cuando éste cambie. Un punto muy importante es que el uso de la función `set` recibe como parámetro un objeto y lo **mergea** con el contenido actual del store. Las keys del objeto que existan seran reemplazadas por las del objeto pasado como parámetro y las que existan y no esten en el objeto pasado como parámetro no seran modificadas. 
+`cambiarVista` es la función que me permite modificar el estado y que hace que los componentes que se suscribieron al store se re-rendericen cuando éste cambie. Un punto muy importante es que el uso de la función `set` recibe como parámetro un objeto y lo **mergea** con el contenido actual del store. Las keys del objeto que existan seran reemplazadas por las del objeto pasado como parámetro y las que existan y no esten en el objeto pasado como parámetro no seran modificadas.
 
 La forma de que un componente se subscriba a un estado, es simplemente asi:
 
