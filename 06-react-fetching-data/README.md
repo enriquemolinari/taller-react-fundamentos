@@ -286,35 +286,3 @@ export default function Users() {
   return ( /* ... renderizado de la lista de usuarios ... */ );
 }
 ```
-
-> **Importante**: `fetch()` **no lanza una excepción** para errores HTTP como 404 o 500. Solo falla si hay un problema de red (sin conexión, CORS, etc.). Por eso, si queremos que `useQuery` capture esos errores correctamente, debemos verificar `res.ok` y lanzar el error manualmente.
-
-### [`useVistaStore.js`](./src/02-tanstack-query/useVistaStore.js)
-
-Store de Zustand idéntico al de `01-useeffect-fetching`. Maneja la navegación entre vistas (`welcome`, `posts`, `users`) de forma global, sin necesidad de pasar props entre componentes.
-
-```js
-export const useVistaStore = create((set) => ({
-  // estado: la vista que está actualmente activa
-  vistaActiva: 'welcome',
-  // función que permite cambiar ese estado
-  cambiarVista: (nuevaVista) => set({ vistaActiva: nuevaVista }),
-}));
-```
-
-### [`Menu.jsx`](./src/02-tanstack-query/Menu.jsx) y [`Body.jsx`](./src/02-tanstack-query/Body.jsx)
-
-Idénticos en lógica a los de `01-useeffect-fetching`. `Menu` lee `cambiarVista` del store; `Body` renderiza condicionalmente `Welcome`, `Post` o `Users` según `vistaActiva`.
-
----
-
-## Comparación: `useEffect` vs TanStack Query
-
-| Aspecto | `useEffect` | TanStack Query |
-|---|---|---|
-| Estados a manejar manualmente | `cargando`, `error`, `datos` (3 `useState`) | `isLoading`, `error`, `data` (automáticos) |
-| Caché | ❌ No existe | ✅ Automático por `queryKey` |
-| Reintentos ante error | ❌ Hay que implementarlo | ✅ 3 reintentos por defecto |
-| Re-fetch al enfocar la ventana | ❌ No existe | ✅ Automático |
-| Boilerplate | Alto | Bajo |
-| Dependencias externas | Ninguna | `@tanstack/react-query` |
