@@ -14,6 +14,8 @@ Estes es un proyecto *npm* monorepo utilizando [npm workspaces](https://docs.npm
 
 - **[05 - Estado en React](05-react-estado/README.md)**: Manejo de estado en React, por qué no funcionan las variables locales, el uso de `useState`, re-renderizados, comunicación de estado mediante props/handlers y manejo de estados con la librería `Zustand`.
 
+- **[06 - Fetching data en React](06-react-fetching-data/README.md)**: Manejo de fetching de datos en React, efectos de lado, por qué usar `useEffect`. Uso de `TanStack Query` para fetches mas optimizados y un approach declarativo del estado de carga, error y datos.
+
 ## Extensiones recomendadas para Visual Studio Code
 
 - Format on Save habilitado
