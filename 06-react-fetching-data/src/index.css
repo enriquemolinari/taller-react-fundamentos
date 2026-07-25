@@ -1,0 +1,135 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: #f8fafc;
+  color: #334155;
+}
+
+.card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.card h2 {
+  margin-top: 0;
+  color: #0f172a;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.badge-info {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.badge-success {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+/* Navegación del Menú */
+.menu-nav {
+  display: flex;
+  gap: 1rem;
+  background-color: #1e293b;
+  padding: 1rem;
+  border-radius: 8px 8px 0 0;
+}
+
+.menu-link {
+  background: transparent;
+  color: #94a3b8;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.menu-link:hover {
+  color: #ffffff;
+  background-color: #334155;
+}
+
+.menu-link.active {
+  color: #ffffff;
+  background-color: #2563eb;
+}
+
+.body-container {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  padding: 1.5rem;
+}
+
+/* Grillas de Post y Users */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.item-card {
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 1rem;
+  background-color: #ffffff;
+}
+
+.item-card h4 {
+  margin-top: 0;
+  color: #1e293b;
+  font-size: 1.1rem;
+}
+
+.item-card p {
+  color: #475569;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.user-info {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.user-info span {
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+/* Estado de carga y error */
+.loading-msg {
+  color: #64748b;
+  font-style: italic;
+  padding: 1rem 0;
+}
+
+.error-msg {
+  color: #991b1b;
+  background-color: #fee2e2;
+  border: 1px solid #fca5a5;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  margin-top: 0.5rem;
+}
