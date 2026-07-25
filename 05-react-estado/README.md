@@ -209,3 +209,12 @@ function OtroComponente() {
 }
 ```
 Cualquier click en los botones de `OtroComponente` hace que se cambie la variable `vistaActiva` que está en el store y por lo tanto se re-renderice el componente `UnComponente` que está subscrito a esa variable. De esta forma se evita tener que pasar props entre componentes y se facilita la comunicación entre componentes distantes.
+
+### ¿Cuándo usar useState y cuándo Zustand?
+
+Si el estado es local al componente y solo es requerido para este componente en cuestión u otro componente hijo directo, entonces utilizaría `useState`.
+
+Si el estado es requerido por componentes que no son hijos directos, o por componentes que están muy distantes en el árbol de componentes, o si el estado es requerido por múltiples componentes en diferentes ramas del árbol de componentes, entonces utilizaría `Zustand`.
+
+En un mismo proyecto de React utilizaría una combinación de ambas estratégias dependiendo de lo que requiera.
+
