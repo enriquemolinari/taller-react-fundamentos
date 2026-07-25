@@ -4,15 +4,15 @@ Estes es un proyecto *npm* monorepo utilizando [npm workspaces](https://docs.npm
 
 ## Estructura del Curso
 
-- **[01 - Fundamentos de JavaScript](01-js-fundamentos/README.md)**: Aprende los conceptos básicos de JavaScript incluyendo funciones (tradicionales, flecha y anónimas) y destructuring de arrays y objetos.
+- **[01 - Fundamentos de JavaScript](01-js-fundamentos/README.md)**: Conceptos básicos de JavaScript incluyendo funciones (tradicionales, flecha y anónimas) y destructuring de arrays y objetos.
 
 - **[02 - React con Vite](02-react-with-vite/README.md)**: Configuración inicial de un proyecto React utilizando Vite como herramienta de construcción para un desarrollo rápido y optimizado.
 
-- **[03 - Componentes en React](03-react-components/README.md)**: Explora la creación y uso de componentes en React, los bloques fundamentales para construir interfaces de usuario.
+- **[03 - Componentes en React](03-react-components/README.md)**: Creación y uso de componentes en React, la construcción sintáctica fundamental para construir interfaces de usuario.
 
-- **[04 - Eventos en React](04-react-eventos/README.md)**: Estudia el manejo de eventos en React, cubriendo <code>onClick</code> en botones y enlaces, <code>onMouseOver</code> y comparativa de funciones declaradas fuera e inline.
+- **[04 - Eventos en React](04-react-eventos/README.md)**: Manejo de eventos en React, cubriendo `onClick` en botones y enlaces, `onMouseOver` y comparativa de funciones declaradas fuera e inline.
 
-- **[05 - Estado en React](05-react-estado/README.md)**: Explica qué es el estado en React, por qué no funcionan las variables locales, el uso de <code>useState</code>, re-renderizados, comunicación de estado mediante props/handlers y una preparación para Zustand.
+- **[05 - Estado en React](05-react-estado/README.md)**: Manejo de estado en React, por qué no funcionan las variables locales, el uso de `useState`, re-renderizados, comunicación de estado mediante props/handlers y manejo de estados con la librería `Zustand`.
 
 ## Extensiones recomendadas para Visual Studio Code
 
