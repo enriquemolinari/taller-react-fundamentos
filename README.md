@@ -16,6 +16,10 @@ Estes es un proyecto *npm* monorepo utilizando [npm workspaces](https://docs.npm
 
 - **[06 - Fetching data en React](06-react-fetching-data/README.md)**: Manejo de fetching de datos en React, efectos de lado, por qué usar `useEffect`. Uso de `TanStack Query` para fetches mas optimizados y un approach declarativo del estado de carga, error y datos.
 
+- **[07 - Formularios en React](07-react-forms/README.md)**: Manejo de formularios en React. Formularios controlados (`controlled forms`) con `useState` para sincronizar el estado del formulario con el DOM. Validaciones manuales y luego uso de la librería [React Hook Form](https://react-hook-form.com/) para simplificar el manejo y validación de formularios de manera eficiente y con mejor rendimiento.
+
+- **[08 - Testing en React](08-react-testing/README.md)**: Testing de componentes con `Vitest` y [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) y testing de fetching de datos con `msw` ([Mock Service Worker](https://mswjs.io/docs/)).
+
 ## Extensiones recomendadas para Visual Studio Code
 
 - Format on Save habilitado
