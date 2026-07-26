@@ -230,7 +230,7 @@ export default function Home() {
 
 ### [`Post.jsx`](./src/02-tanstack-query/Post.jsx)
 
-Reemplaza el triplete `useState` + `useEffect` por una sola llamada a `useQuery`.
+Reemplaza el `useState` + `useEffect` por una sola llamada a `useQuery`.
 
 ```jsx
 export default function Post() {
