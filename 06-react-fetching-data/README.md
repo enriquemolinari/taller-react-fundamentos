@@ -288,7 +288,11 @@ export default function Users() {
   return ( /* ... renderizado de la lista de usuarios ... */ );
 }
 ```
+¿Cómo funciona `useQuery()`?
 
+En el primer renderizado `useQuery()` revisa si la queryKey `['posts']` ya existe en la caché. Si no existe, ejecuta la `queryFn` para obtener los datos de la API pero devuelve mientras ésta se ejecuta el control al componente. Por eso es importante manejar el estado de carga (`isLoading`), porque la `data` de respuesta es **siempre** inicialmente `undefined`.
+
+Una vez que se resuelve `queryFn` y hay datos, los guarda en la caché asociados a la `queryKey`, actualiza el estado del componente y el componente se vuelve a renderizar con los datos. Si el componente se vuelve a montar, `useQuery()` encuentra los datos en la caché y los devuelve directamente sin hacer el fetch (evita el bucle infinito de esta forma).
 ---
 
 ## Ejemplo: `03-tanstack-query-paging/`

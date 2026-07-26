@@ -32,7 +32,7 @@ export default function Todos() {
       ).then((res) => res.json()),
   });
 
-  if (isLoading) return <p className="loading-msg">Cargando todos...</p>;
+  if (isLoading) return <p className="loading-msg">Cargando TODOs...</p>;
   if (error) return <p className="error-msg">Error: {error.message}</p>;
 
   return (
