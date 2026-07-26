@@ -349,4 +349,4 @@ export default function Todos() {
 }
 ```
 
-Observar que `page` es una variable de estado de react y al modificarse se produce un nuevo renderizado (invocación a la función que define al componente) y en cada renderizado se invoca a useQuery() y debido a que `page` forma parte de la `queryKey`, se produce un nuevo fetch a la API.
+Observar que `page` es una variable de estado de react y al modificarse se produce un nuevo renderizado (invocación a la función que define al componente) y en cada renderizado se invoca a `useQuery()` y debido a que `page` forma parte de la `queryKey`, se produce un nuevo fetch a la API.
