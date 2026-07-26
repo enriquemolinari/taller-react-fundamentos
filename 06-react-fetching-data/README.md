@@ -19,14 +19,16 @@ src/
 │   ├── Post.jsx
 │   ├── Users.jsx
 │   └── useVistaStore.js
-└── 02-tanstack-query/
-    ├── Home.jsx
-    ├── Menu.jsx
-    ├── Body.jsx
-    ├── Welcome.jsx
-    ├── Post.jsx
-    ├── Users.jsx
-    └── useVistaStore.js
+├── 02-tanstack-query/
+│   ├── Home.jsx
+│   ├── Menu.jsx
+│   ├── Body.jsx
+│   ├── Welcome.jsx
+│   ├── Post.jsx
+│   ├── Users.jsx
+│   └── useVistaStore.js
+└── 03-tanstack-query-paging/
+    └── Todos.jsx
 ```
 
 ---
@@ -286,3 +288,65 @@ export default function Users() {
   return ( /* ... renderizado de la lista de usuarios ... */ );
 }
 ```
+
+---
+
+## Ejemplo: `03-tanstack-query-paging/`
+
+Esta carpeta introduce la **paginación con TanStack Query**. Consume el endpoint de TODOs de JSONPlaceholder con los parámetros `_page` y `_limit`.
+
+### ¿Cómo funciona la paginación?
+
+La clave es incluir la página actual (su número) dentro de la `queryKey`. Así TanStack Query guarda en caché cada página por separado y sabe cuándo debe volver a hacer el request.
+
+```
+queryKey: ['todos', 1]  → caché para la página 1
+queryKey: ['todos', 2]  → caché para la página 2  ← entrada distinta
+```
+
+Si la `queryKey` fuera siempre `['todos']`, al cambiar de página la caché no se invalidaría y siempre se vería la primera respuesta.
+
+### [`Todos.jsx`](./src/03-tanstack-query-paging/Todos.jsx)
+
+```jsx
+export default function Todos() {
+  // useState controla qué página se solicita
+  const [page, setPage] = useState(1);
+
+  const { data: todos, isLoading, error } = useQuery({
+    // page forma parte de la queryKey → nueva entrada en caché por cada página
+    queryKey: ['todos', page],
+    queryFn: () =>
+      fetch(
+        `https://jsonplaceholder.typicode.com/todos?_page=${page}&_limit=10`
+      ).then((res) => res.json()),
+  });
+
+  if (isLoading) return <p className="loading-msg">Cargando TODOs...</p>;
+  if (error) return <p className="error-msg">Error: {error.message}</p>;
+
+  return (
+    <div>
+      <h3>TODOs - Página {page}</h3>
+      <div className="grid-container">
+        {todos.map((todo) => (
+          <article key={todo.id} className="item-card">
+            <h4>#{todo.id} - {todo.title}</h4>
+            <span>{todo.completed ? '✓ Completado' : '⏳ Pendiente'}</span>
+          </article>
+        ))}
+      </div>
+
+      {/* Botones de navegación */}
+      <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1}>
+        ← Anterior
+      </button>
+      <button onClick={() => setPage((p) => p + 1)}>
+        Siguiente →
+      </button>
+    </div>
+  );
+}
+```
+
+Observar que `page` es una variable de estado de react y al modificarse se produce un nuevo renderizado (invocación a la función que define al componente) y en cada renderizado se invoca a useQuery() y debido a que `page` forma parte de la `queryKey`, se produce un nuevo fetch a la API.
