@@ -16,7 +16,7 @@ Estes es un proyecto *npm* monorepo utilizando [npm workspaces](https://docs.npm
 
 - **[06 - Fetching data en React](06-react-fetching-data/README.md)**: Manejo de fetching de datos en React, efectos de lado, por qué usar `useEffect`. Uso de `TanStack Query` para fetches mas optimizados y un approach declarativo del estado de carga, error y datos.
 
-- **[07 - Formularios en React](07-react-forms/README.md)**: Manejo de formularios utilizando la librería [React Hook Form](https://react-hook-form.com/).
+- **[07 - Formularios en React](07-react-forms/README.md)**: Manejo de formularios utilizando la librería [React Hook Form](https://react-hook-form.com/). Además se incluye un ejemplo de login para mostrar como se consume una API real de autenticación.
 
 - **[08 - Testing en React](08-react-testing/README.md)**: Testing de componentes con `Vitest` y [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) y testing de fetching de datos con `msw` ([Mock Service Worker](https://mswjs.io/docs/)).
 
