@@ -9,8 +9,10 @@ src/
 ├── main.jsx
 ├── index.css
 ├── App.jsx
-└── 01-form-basico/
-    └── DemoFormBasico.jsx
+├── 01-form-basico/
+│   └── DemoFormBasico.jsx
+└── 02-form-login/
+    └── Login.jsx
 ```
 
 ## Conceptos
@@ -56,7 +58,7 @@ El primer argumento es el **nombre del campo** (será la clave en los datos del 
 
 ### `handleSubmit`
 
-Envuelve la función de submit. Cuando el usuario envía el form, `handleSubmit` primero valida todos los campos. Si son válidos, llama a la función con los datos del form:
+Es un wrapper de la función de submit. Cuando el usuario envía el form, `handleSubmit` primero valida todos los campos. Si son válidos, llama a la función con los datos del form:
 
 ```jsx
 // src/01-form-basico/DemoFormBasico.jsx
@@ -79,3 +81,79 @@ Objeto que contiene los errores de validación. Si un campo falla, `errors.nombr
 // src/01-form-basico/DemoFormBasico.jsx
 {errors.nombre && <span>{errors.nombre.message}</span>}
 ```
+
+---
+
+## Formulario de Login con llamada a una API real
+
+### Preparación del backend
+
+El ejemplo de login consume una API (Servicio Web). Para levantarla localmente, clonar y ejecutar el proyecto:
+
+```
+https://github.com/enriquemolinari/taller-persistencia-apiweb/tree/capa-web-service-repositorios-login1
+```
+
+Una vez iniciado el servicio, crear un usuario con:
+
+```bash
+curl --location 'http://localhost:8080/registrar' \
+--header 'Content-Type: application/json' \
+--data '{
+    "username": "enrique",
+    "password": "12345"
+}'
+```
+
+---
+
+### `Login.jsx` formulario que consume una API
+
+El componente en `src/02-form-login/Login.jsx` usa los mismos conceptos de `useForm` ya vistos, pero el `onSubmit` realiza una llamada `fetch` real al backend.
+
+#### Llamada a la API con `fetch`
+
+```jsx
+// src/02-form-login/Login.jsx
+async function onSubmit(datos) {
+    setErrorMessage(null);
+    setSuccessMessage(null);
+    const response = await fetch(
+        `${host}/login`,
+        {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                username: datos.usuario,
+                password: datos.clave
+            }),
+        }
+    );
+    if (response.ok) {
+        setSuccessMessage("Login successful!");
+    } else {
+        const errorData = await response.json();
+        setErrorMessage(errorData.message);
+    }
+}
+```
+
+| Detalle | Explicación |
+|---|---|
+| `async/await` | Permite esperar la respuesta sin bloquear el hilo principal |
+| `method: "POST"` | El método HTTP requerido por el Servicio Web |
+| `credentials: "include"` | Incluye cookies en la petición |
+| `body: JSON.stringify(...)` | Convierte el objeto JS a texto JSON para enviarlo |
+| `response.ok` | `true` si el servidor respondió con código 2xx (éxito) |
+
+#### Manejo de respuesta exitosa y de error
+
+```jsx
+// src/02-form-login/Login.jsx
+{successMessage && <span style={{ color: 'green' }}>{successMessage}</span>}
+
+{errorMessage && <span style={estilos.error}>{errorMessage}</span>}
+```
+
+Si la API responde con éxito se muestra un mensaje en verde. Si responde con error, se muestra el mensaje que devuelve el servidor.
